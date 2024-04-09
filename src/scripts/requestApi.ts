@@ -1,7 +1,17 @@
-import { test2 } from "../App";
+import { test2 } from "./interfaces";
+//re work this so that there is a seperate functiuon for ensuring the id is not taken. As here it verifys and then ammends even if the api call fails
+async function requestApi(
+  existingIds: (id: number) => boolean
+): Promise<test2> {
+  let isValid = false;
+  let index: string = "";
+  //
 
-async function requestApi(): Promise<test2> {
-  let index: string = Math.floor(Math.random() * 1025 + 1).toString();
+  let indexNum = Math.floor(Math.random() * 1025 + 1);
+  index = indexNum.toString();
+  if (existingIds(indexNum) === true) {
+    isValid = true;
+  }
 
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${index}`);
