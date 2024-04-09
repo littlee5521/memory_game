@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import "../styles/game_container.css";
 import MemoryCard from "./memory_card";
-import { useEffect } from "react";
 function GameContainer() {
   //
   const [renderedPokeMon, setRenderedPokeMon] = useState<number[]>([]);
@@ -38,6 +37,21 @@ function GameContainer() {
 
   return (
     <div className="game_container">
+      <MemoryCard
+        existingIds={ammedId}
+        isClickValid={handleCardClick}
+        isIdValid={doesIdExist}
+      />
+      <MemoryCard
+        existingIds={ammedId}
+        isClickValid={handleCardClick}
+        isIdValid={doesIdExist}
+      />
+      <MemoryCard
+        existingIds={ammedId}
+        isClickValid={handleCardClick}
+        isIdValid={doesIdExist}
+      />
       <MemoryCard
         existingIds={ammedId}
         isClickValid={handleCardClick}
