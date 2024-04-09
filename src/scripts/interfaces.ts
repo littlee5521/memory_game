@@ -1,5 +1,5 @@
 export interface test2 {
-  id?: number;
+  id: number;
   name: string;
   sprites: {
     front_default: string;

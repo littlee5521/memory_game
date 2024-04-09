@@ -6,11 +6,12 @@ async function requestApi(
   let isValid = false;
   let index: string = "";
   //
-
-  let indexNum = Math.floor(Math.random() * 1025 + 1);
-  index = indexNum.toString();
-  if (existingIds(indexNum) === true) {
-    isValid = true;
+  while (isValid === false) {
+    let indexNum = Math.floor(Math.random() * 1025 + 1);
+    index = indexNum.toString();
+    if (existingIds(indexNum) === true) {
+      isValid = true;
+    }
   }
 
   try {
