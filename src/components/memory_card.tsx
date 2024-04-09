@@ -3,16 +3,22 @@ import { useState } from "react";
 import { useEffect } from "react";
 import requestApi from "../scripts/requestApi";
 
-const MemoryCard: React.FC<MemoryCardProps> = ({ existingIds }) => {
+const MemoryCard: React.FC<MemoryCardProps> = ({
+  existingIds,
+  isClickValid,
+  isIdValid,
+}) => {
   const [pokeMonObject, setPokeMonObject] = useState({
     id: 0,
     sprite_url: "",
     name: "hello",
   });
+  useEffect(() => {
+    console.log(pokeMonObject);
+  }, [pokeMonObject]);
   //
   useEffect(() => {
-    requestApi(existingIds).then((data) => {
-      console.log(data);
+    requestApi(existingIds, isIdValid).then((data) => {
       setPokeMonObject((prevObject) => {
         return {
           ...prevObject,
@@ -21,13 +27,16 @@ const MemoryCard: React.FC<MemoryCardProps> = ({ existingIds }) => {
           name: data.name,
         };
       });
-      console.log(pokeMonObject);
     });
   }, []);
   //
   return (
     <div className="memoryCard">
-      <button>
+      <button
+        onClick={() => {
+          console.log(isClickValid(pokeMonObject.id));
+        }}
+      >
         <img src={pokeMonObject.sprite_url} alt="a pokemon" />
         <p>{pokeMonObject.name}</p>
       </button>
@@ -39,4 +48,6 @@ export default MemoryCard;
 
 interface MemoryCardProps {
   existingIds: (id: number) => boolean;
+  isIdValid: (id: number) => boolean;
+  isClickValid: (id: number) => boolean;
 }
