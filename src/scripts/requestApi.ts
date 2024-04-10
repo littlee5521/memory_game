@@ -6,7 +6,6 @@ async function requestApi(index: number): Promise<pokeMonObjectInterface> {
     sprite_url: "",
     name: "",
   };
-
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${index}`);
     if (!response.ok) {
@@ -23,3 +22,34 @@ async function requestApi(index: number): Promise<pokeMonObjectInterface> {
   }
 }
 export default requestApi;
+
+/*
+recursion {
+  const pokeMonObject = {
+    id: 0,
+    sprite_url: "",
+    name: "",
+  };
+  if(iteration<iteration_target) {
+  try {
+    if(iteration === 0) {
+      const objectArray2 = []
+    }
+    else {
+      objectArray2 = objectArray
+    }
+    iteration++
+    const respone = fetch 
+    const data = response.json 
+    const pokemonObj = //////////
+    object_array append pokeMonObj 
+    request api (index, iteration, iteration_target, ?objecrArray)
+  }
+  catcg{
+
+  }
+  return objectArray2
+}{
+}
+
+*/

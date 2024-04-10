@@ -18,10 +18,12 @@ function GameContainer() {
     if (hadLoadedBefore.current) {
       hadLoadedBefore.current = false;
       for (let i = 0; i < 15; i++) {
+        console.log("a apiu has been started" + i);
         const index =
           state_functions_object.generateRandomIndex(renderedPokeMon);
         setRenderedPokeMon((prevArray) => [...prevArray, index]);
         requestApi(index).then((data) => {
+          console.log("and one has been finished" + data.id);
           if (!existingPokeMon.some((item) => item.id === data.id)) {
             setExistingPokeMon((prevArray) => [...prevArray, data]);
           }
