@@ -19,7 +19,7 @@ function GameContainer() {
       hadLoadedBefore.current = false;
       const temp = [0];
       const index = state_functions_object.generateRandomIndex(temp);
-      requestApi(index, 0, 100).then((data) => {
+      requestApi(index, 0, 15).then((data) => {
         console.log(data);
         setExistingPokeMon(data);
         console.log("I should only run at the end");
