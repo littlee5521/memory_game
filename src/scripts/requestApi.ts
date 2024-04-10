@@ -16,6 +16,7 @@ async function requestApi(
     name: "",
   };
   if (iteration < iteration_target) {
+    console.log(iteration);
     if (iteration !== 0 && objectArray !== undefined && idArray !== undefined) {
       pokeMonObjectPlaceHolder = objectArray;
       idArrayPlaceHolder = idArray;
@@ -24,11 +25,6 @@ async function requestApi(
     idArrayPlaceHolder.push(index);
     const nextIndex =
       state_functions_object.generateRandomIndex(idArrayPlaceHolder);
-    const pokeMonObject = {
-      id: 0,
-      sprite_url: "",
-      name: "",
-    };
 
     //
     try {
@@ -43,7 +39,7 @@ async function requestApi(
       pokeMonObject.name = data.name;
       pokeMonObject.sprite_url = data.sprites.front_default;
       pokeMonObjectPlaceHolder.push(pokeMonObject);
-      requestApi(
+      await requestApi(
         nextIndex,
         iteration,
         iteration_target,

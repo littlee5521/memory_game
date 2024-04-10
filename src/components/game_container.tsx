@@ -17,17 +17,13 @@ function GameContainer() {
   useEffect(() => {
     if (hadLoadedBefore.current) {
       hadLoadedBefore.current = false;
-      for (let i = 0; i < 15; i++) {
-        ///this needs to be rewritten as now the number is generated twice and the rendered array is no longer correcrt
-        const index =
-          state_functions_object.generateRandomIndex(renderedPokeMon);
-        setRenderedPokeMon((prevArray) => [...prevArray, index]);
-        requestApi({ index }).then((data) => {
-          if (!existingPokeMon.some((item) => item.id === data.id)) {
-            setExistingPokeMon((prevArray) => [...prevArray, data]);
-          }
-        });
-      }
+      const temp = [0];
+      const index = state_functions_object.generateRandomIndex(temp);
+      requestApi(index, 0, 100).then((data) => {
+        console.log(data);
+        setExistingPokeMon(data);
+        console.log("I should only run at the end");
+      });
     }
   }, []);
 
@@ -44,11 +40,6 @@ function GameContainer() {
           )}
         />
       ))}
-      <button
-        onClick={() => {
-          console.log(renderedPokeMon);
-        }}
-      ></button>
       <button
         onClick={() => {
           console.log(existingPokeMon);
