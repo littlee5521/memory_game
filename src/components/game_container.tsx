@@ -18,11 +18,11 @@ function GameContainer() {
     if (hadLoadedBefore.current) {
       hadLoadedBefore.current = false;
       for (let i = 0; i < 15; i++) {
-        ///this needs to be rewritten as now the number is generated twice
+        ///this needs to be rewritten as now the number is generated twice and the rendered array is no longer correcrt
         const index =
           state_functions_object.generateRandomIndex(renderedPokeMon);
-        setRenderedPokeMon((prevArray) => [...prevArray, index()]);
-        requestApi(index()).then((data) => {
+        setRenderedPokeMon((prevArray) => [...prevArray, index]);
+        requestApi({ index }).then((data) => {
           if (!existingPokeMon.some((item) => item.id === data.id)) {
             setExistingPokeMon((prevArray) => [...prevArray, data]);
           }

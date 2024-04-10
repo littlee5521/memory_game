@@ -1,25 +1,61 @@
 import { pokeMonInterface } from "./interfaces";
 import { pokeMonObjectInterface } from "./interfaces";
-async function requestApi(index: number): Promise<pokeMonObjectInterface> {
+import state_functions_object from "./game_container_state_functions";
+async function requestApi(
+  index: number,
+  iteration: number,
+  iteration_target: number,
+  objectArray?: pokeMonObjectInterface[],
+  idArray?: number[]
+): Promise<pokeMonObjectInterface[]> {
+  let pokeMonObjectPlaceHolder: pokeMonObjectInterface[] = [];
+  let idArrayPlaceHolder: number[] = [];
   const pokeMonObject = {
     id: 0,
     sprite_url: "",
     name: "",
   };
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${index}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
+  if (iteration < iteration_target) {
+    if (iteration !== 0 && objectArray !== undefined && idArray !== undefined) {
+      pokeMonObjectPlaceHolder = objectArray;
+      idArrayPlaceHolder = idArray;
     }
-    const data: pokeMonInterface = await response.json();
-    pokeMonObject.id = data.id;
-    pokeMonObject.name = data.name;
-    pokeMonObject.sprite_url = data.sprites.front_default;
-    return pokeMonObject;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
+    iteration++;
+    idArrayPlaceHolder.push(index);
+    const nextIndex =
+      state_functions_object.generateRandomIndex(idArrayPlaceHolder);
+    const pokeMonObject = {
+      id: 0,
+      sprite_url: "",
+      name: "",
+    };
+
+    //
+    try {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${index}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data: pokeMonInterface = await response.json();
+      pokeMonObject.id = data.id;
+      pokeMonObject.name = data.name;
+      pokeMonObject.sprite_url = data.sprites.front_default;
+      pokeMonObjectPlaceHolder.push(pokeMonObject);
+      requestApi(
+        nextIndex,
+        iteration,
+        iteration_target,
+        pokeMonObjectPlaceHolder,
+        idArrayPlaceHolder
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
   }
+  return pokeMonObjectPlaceHolder;
 }
 export default requestApi;
 

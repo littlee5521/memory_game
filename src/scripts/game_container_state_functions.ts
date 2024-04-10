@@ -38,18 +38,16 @@ class game_Container_State_Functions {
       }
     };
   }
-  generateRandomIndex(arrayToBeChecked: number[]): () => number {
-    return () => {
-      let isValid = false;
-      let temp = 0;
-      while (isValid === false) {
-        let indexNum = Math.floor(Math.random() * 1025 + 1);
-        if (arrayToBeChecked.includes(indexNum) === false) {
-          return indexNum;
-        }
+  generateRandomIndex(arrayToBeChecked: number[]): number {
+    let isValid = false;
+    let temp = 0;
+    while (isValid === false) {
+      let indexNum = Math.floor(Math.random() * 1025 + 1);
+      if (arrayToBeChecked.includes(indexNum) === false) {
+        return indexNum;
       }
-      return temp;
-    };
+    }
+    return temp;
   }
 }
 
