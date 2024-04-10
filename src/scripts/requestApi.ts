@@ -34,16 +34,18 @@ recursion {
   try {
     if(iteration === 0) {
       const objectArray2 = []
+      const idArray 2 = []
     }
     else {
       objectArray2 = objectArray
+      idArray2 = idarray
     }
     iteration++
     const respone = fetch 
     const data = response.json 
     const pokemonObj = //////////
     object_array append pokeMonObj 
-    request api (index, iteration, iteration_target, ?objecrArray)
+    request api (index: () =>, iteration:number, iteration_target:number, ?objecrArray:pokeMonObjectInterface[], ?idArray:number[])
   }
   catcg{
 
