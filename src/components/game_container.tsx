@@ -20,14 +20,15 @@ function GameContainer() {
       for (let i = 0; i < 15; i++) {
         const index =
           state_functions_object.generateRandomIndex(renderedPokeMon);
+        setRenderedPokeMon((prevArray) => [...prevArray, index]);
         requestApi(index).then((data) => {
-          setRenderedPokeMon((prevArray) => [...prevArray, data.id]);
-          setExistingPokeMon((prevArray) => [...prevArray, data]);
+          if (!existingPokeMon.some((item) => item.id === data.id)) {
+            setExistingPokeMon((prevArray) => [...prevArray, data]);
+          }
         });
       }
     }
   }, []);
-  // This code will be passed down to the memeroy card components to ensure no repeat cards.
 
   return (
     <div className="game_container">
@@ -42,6 +43,11 @@ function GameContainer() {
           )}
         />
       ))}
+      <button
+        onClick={() => {
+          console.log(existingPokeMon);
+        }}
+      ></button>
     </div>
   );
 }
