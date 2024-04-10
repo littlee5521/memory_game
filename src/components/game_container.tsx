@@ -4,6 +4,7 @@ import "../styles/game_container.css";
 import state_functions_object from "../scripts/game_container_state_functions";
 import { useRef } from "react";
 import requestApi from "../scripts/requestApi";
+import MemoryCard from "./memory_card";
 function GameContainer() {
   //
   const [renderedPokeMon, setRenderedPokeMon] = useState<number[]>([]);
@@ -31,10 +32,15 @@ function GameContainer() {
   return (
     <div className="game_container">
       {existingPokeMon.map((item) => (
-        <button key={item.id}>
-          <img src={item.sprite_url} alt="" />
-          <p>{item.name}</p>
-        </button>
+        <MemoryCard
+          key={item.id}
+          pokeMonObject={item}
+          isClickValid={state_functions_object.handleCardClick(
+            clickedPokeMon,
+            item.id,
+            setClickedPokemon
+          )}
+        />
       ))}
     </div>
   );

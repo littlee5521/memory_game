@@ -26,15 +26,17 @@ class game_Container_State_Functions {
     arrayToBeChecked: number[],
     id: number,
     stateToBeUpdated: (value: React.SetStateAction<number[]>) => void
-  ) {
-    let clickIsValid = true;
-    if (arrayToBeChecked.includes(id)) {
-      clickIsValid = false;
-      return clickIsValid;
-    } else {
-      stateToBeUpdated((prevArray) => [...prevArray, id]);
-      return clickIsValid;
-    }
+  ): () => boolean {
+    return () => {
+      let clickIsValid = true;
+      if (arrayToBeChecked.includes(id)) {
+        clickIsValid = false;
+        return clickIsValid;
+      } else {
+        stateToBeUpdated((prevArray) => [...prevArray, id]);
+        return clickIsValid;
+      }
+    };
   }
   generateRandomIndex(arrayToBeChecked: number[]): number {
     let isValid = false;
